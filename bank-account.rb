@@ -16,6 +16,18 @@ class Bankaccount
 		@balance -= withdraw_amount
 	end
 
+	def balance #reader method
+		return @balance
+	end
+
+	def balance=(newbalance) #writer method
+		@balance = newbalance
+	end
+
+	def self.total_reader
+		 "total in the account is #{total_funds}"
+		 
+	end 
 
 	def self.create_account(name) #class method to create a new account and add it to array
 		@@accounts.push Bankaccount.new(name)
@@ -27,24 +39,24 @@ class Bankaccount
 	end 
 
 	def self.total_funds
-
+		total_balance = 0
+		@@accounts.each do |account_balance|
+ 			total_balance += account_balance.balance 
+ 		end
+ 		return total_balance
 	end 
 
-	def self.interest_time 
+
+
+	def self.interest_time #interest calculated using the reader/writer methods 
 		@@accounts.each do |account|
-		account.balance=(account.balance * 1.005)
+			account.balance=(account.balance * 1.005)
 
 		end 
 		
 	end 
 
-	def balance #reader method
-		return @balance
-	end
-
-	def balance=(newbalance) #writer method
-		@balance = newbalance
-	end
+	 
 
 
 end 
@@ -76,6 +88,10 @@ end
 	Bankaccount.interest_time #need to call it only once because it is a class method and iterates through the entire array
 
 
+# show total of all accounts in the bank
+	Bankaccount.total_funds
+
+	puts Bankaccount.total_reader
 
 	puts Bankaccount.access_account_info.inspect
 
