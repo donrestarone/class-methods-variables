@@ -1,6 +1,6 @@
 class Bankaccount 
 @@interest_rate = 1.005
-@@accounts = []
+@@accounts = []  #accounts are accessed by calling on the array 
 	def initialize(name) 
 		@balance = 0
 		@name = name #You should also add reader and writer methods 
@@ -46,18 +46,13 @@ class Bankaccount
  		return total_balance
 	end 
 
-
-
 	def self.interest_time #interest calculated using the reader/writer methods 
 		@@accounts.each do |account|
-			account.balance=(account.balance * 1.005)
+			account.balance=(account.balance * @@interest_rate)
 
 		end 
 		
 	end 
-
-	 
-
 
 end 
 
