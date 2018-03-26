@@ -38,16 +38,16 @@ class Bankaccount
 		return @@accounts  
 	end 
 
-	def self.total_funds
+	def self.total_funds #class method to add all the balances in the accounts 
 		total_balance = 0
-		@@accounts.each do |account_balance|
+		@@accounts.each do |account_balance| #iteration to add one balance to the other 
  			total_balance += account_balance.balance 
  		end
  		return total_balance
 	end 
 
-	def self.interest_time #interest calculated using the reader/writer methods 
-		@@accounts.each do |account|
+	def self.interest_time #in this class method interest calculated using the reader/writer methods 
+		@@accounts.each do |account| #iteration to add interest to each of the accounts in array
 			account.balance=(account.balance * @@interest_rate)
 
 		end 
