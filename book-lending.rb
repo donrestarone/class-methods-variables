@@ -6,6 +6,7 @@ class Book
 		@title = title
 		@author = author
 		@isbn = isbn 
+		
 	end 
 
 	def self.add_tolib(title, author, isbn) #to add books to the library, pushes to @@onshelf. 
@@ -21,14 +22,37 @@ class Book
 		return @@on_loan
 	end 
 
+	def name #reader for book title
+		@name = @title
+	end 
+
 	def self.browse
 		browser = []
 		browser = @@on_shelf.sample
 		return browser
 	end 
 
-	def lent_out? 
+	def self.current_due_date
+		due_date = Time.now + 604800
+		return due_date
+	end
 
+	
+	def lent_out?
+		
+
+	end
+
+	def borrow
+		
+
+	end 
+	
+	 
+
+	def return_to_library
+		
+		
 	end
 
 
@@ -45,3 +69,7 @@ puts Book.available.inspect
 
 #give a random suggestion from the on_shelf
 puts "book suggestion; #{Book.browse.inspect}"
+
+# puts Book.current_due_date
+# Book.borrow
+# Book.lent_out?
