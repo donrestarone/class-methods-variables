@@ -11,10 +11,9 @@ class Book
 		@title = title
 		@author = author
 		@isbn = isbn 
+
 		
 	end
-
-	
 
 	def self.add_tolib(title, author, isbn) #to add books to the library, pushes to @@onshelf. 
 		new_book = Book.new(title, author, isbn) #encapsulate each new book in a variable.
@@ -40,13 +39,11 @@ class Book
 		return browser
 	end 
 
-	def self.current_due_date
+	def current_due_date
 		due_date = Time.now + 604800
 		return due_date
 	end
 
-
-	
 	def lent_out?
 		@@on_shelf.each do |bookname|
 			if self.isbn == bookname.isbn
@@ -56,33 +53,30 @@ class Book
 		return true 
 	end 
 
-		
-
-
 
 	def borrow
+		 
 		if self.lent_out? == false #if the book in self is not lent out, then push it to the other array
 			@@on_loan.push(self)
+			@due_date = current_due_date #add due date to the books that are being borrowed. 
 			@@on_shelf.delete(self) #delete the book we called borrow on from the on shelf array
+			
 		end
-
 	end 
-	
-	 
 
 	def return_to_library
-		
-		
+		if self.lent_out? == true 
+			@@on_shelf.push(self)
+			@@on_loan.delete(self)
+		end 
 	end
-
-
 end 
 
 
 
 #add two books to the library
 
-am_i = Book.add_tolib("Ain't I a Woman?", "Bell Hooks", "9780896081307")
+aint_i = Book.add_tolib("Ain't I a Woman?", "Bell Hooks", "9780896081307")
 sister = Book.add_tolib("Sister Outsider", "Audre Lorde", "9781515905431")
 
 puts Book.available.inspect
@@ -90,11 +84,15 @@ puts Book.available.inspect
 
 #give a random suggestion from the on_shelf
 puts "book suggestion; #{Book.browse.inspect}"
-puts am_i.lent_out?
+puts aint_i.lent_out?
 
-am_i.borrow
+aint_i.borrow
 
-puts am_i.lent_out?
-# puts Book.current_due_date
-# Book.borrow
-# Book.lent_out?
+puts aint_i.lent_out?
+#test borrowed class method 
+puts "books currently lent out #{Book.borrowed.inspect}"
+
+aint_i.return_to_library
+puts "books currently lent out #{Book.borrowed.inspect}" #this should be empty 
+puts aint_i.inspect
+
