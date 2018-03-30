@@ -19,15 +19,34 @@ class Zombie
 		end 
 	end 
 
-	def encounter 
-
-	end 
-
 	def outrun_zombie?
-
+		player_speed = rand(@@max_speed)
+		if player_speed > @speed #@speed is the speed of a zombie instance
+			return true 
+		else 
+			return false
+		end 
 	end 
 
 	def survive_attack? 
+		player_strength = rand(@@max_strength)
+		if player_strength > @strength 
+			return true 
+		else 
+			return false
+		end 
+	end 
+
+	def encounter 
+		if outrun_zombie? == true
+			p "you escaped unscathed"
+		elsif survive_attack? == true 
+			p "you survived the attack"
+		else 
+			new_zombie = Zombie.new(@speed,@strength)
+			@@horde << new_zombie
+			p "you turned into a zombie"
+		end 
 
 	end 
 
@@ -38,6 +57,9 @@ class Zombie
 	end 
 
 	def self.new_day 
+		self.some_die_off
+		self.spawn
+		self.increase_plague_level
 
 	end 
 
@@ -81,21 +103,24 @@ class Zombie
 	end 
 
 	def self.increase_plague_level
+		increase_level = rand(2)
+		@@plague_level + increase_level
 
 	end 
 
 
 end
+zombie_test = Zombie.new(5, 5)
+10.times {
+Zombie.new_day
 
-Zombie.spawn 
-Zombie.spawn
-puts Zombie.all_zombies.inspect
-puts Zombie.all 
+}
 
-Zombie.some_die_off
-puts Zombie.all_zombies.inspect
+puts Zombie.all_zombies.inspect 
+puts Zombie.all
 
-puts Zombie.all 
+zombie_test.encounter
+puts Zombie.all
 
 
 
