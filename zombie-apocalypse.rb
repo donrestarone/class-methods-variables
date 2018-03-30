@@ -8,7 +8,7 @@ class Zombie
 
 	def initialize(speed, strength) 
 		 	#If the speed argument is greater than @@max_speed then @@default_speed should be used as the new zombie's speed instead
-		if speed > @@max_speed
+		if speed > @@max_speed 
 			@speed = @@default_speed
 		else @speed = speed
 		end 
@@ -32,6 +32,8 @@ class Zombie
 	end 
 
 	def self.all 
+		nummber_of_horde = @@horde.count 
+		return nummber_of_horde
 
 	end 
 
@@ -44,7 +46,26 @@ class Zombie
 	end 
 
 	def self.spawn 
+		random_number_for_plague = @@plague_level
+		generated_number_p = rand(1..random_number_for_plague)
 
+		random_speed_number = @@max_speed
+		generated_number_sp = rand(1..random_speed_number)
+
+		random_strength_number = @@max_strength
+		generated_number_st = rand(1..random_strength_number)
+
+		generated_number_p.times do
+			zombiespeed = (generated_number_sp)
+			zombiestrength = (generated_number_st)
+			a_zombie = Zombie.new(zombiespeed,zombiestrength)
+			@@horde.push(a_zombie)
+		end
+		return generated_number_p
+	end 
+
+	def self.all_zombies
+		return @@horde
 	end 
 
 	def self.increase_plague_level
@@ -54,6 +75,29 @@ class Zombie
 
 end
 
-zombie1 = Zombie.new(6, 10)
+#zombie1 = Zombie.new(6, 10)
 
-puts zombie1.inspect
+#puts zombie1.inspect
+
+#puts Zombie.spawn.inspect
+#puts @@horde.inspect
+
+Zombie.spawn 
+
+puts Zombie.spawn.inspect
+
+puts Zombie.all_zombies.inspect
+puts Zombie.all.inspect
+
+
+
+
+
+
+
+
+
+
+
+
+
