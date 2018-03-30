@@ -4,7 +4,7 @@ class Zombie
 	@@max_speed = 5 #this value wont change 
 	@@max_strength = 8 #this value wont change 
 	@@default_speed = 1 #this value wont change 
-	@@default_strength = 3 #this value wont change 
+	@@default_strength = 3 #this value wont change   
 
 	def initialize(speed, strength) 
 		 	#If the speed argument is greater than @@max_speed then @@default_speed should be used as the new zombie's speed instead
@@ -12,7 +12,7 @@ class Zombie
 			@speed = @@default_speed
 		else @speed = speed
 		end 
-		#@strength = strength	#strength argument is less than or equal to @@max_strength, otherwise @@default_strength should be used as the new zombie's strength attribute.
+			#strength argument is less than or equal to @@max_strength, otherwise @@default_strength should be used as the new zombie's strength attribute.
 		if strength >= @@max_strength
 			@strength = @@default_strength
 		else @strength = strength
@@ -32,8 +32,8 @@ class Zombie
 	end 
 
 	def self.all 
-		nummber_of_horde = @@horde.count 
-		return nummber_of_horde
+		number_of_horde = @@horde.count 
+		return number_of_horde
 
 	end 
 
@@ -42,7 +42,19 @@ class Zombie
 	end 
 
 	def self.some_die_off 
+		death_num = rand(10)
+		alive_num = @@horde.count
+		if death_num == alive_num
+			@@horde.pop(death_num)
 
+		elsif death_num > alive_num
+			death_num = death_num - alive_num
+			@@horde.pop(death_num)
+
+		else death_num < alive_num
+			@@horde.pop(death_num)
+
+		end
 	end 
 
 	def self.spawn 
@@ -75,29 +87,15 @@ class Zombie
 
 end
 
-#zombie1 = Zombie.new(6, 10)
-
-#puts zombie1.inspect
-
-#puts Zombie.spawn.inspect
-#puts @@horde.inspect
-
 Zombie.spawn 
-
-puts Zombie.spawn.inspect
-
+Zombie.spawn
 puts Zombie.all_zombies.inspect
-puts Zombie.all.inspect
+puts Zombie.all 
 
+Zombie.some_die_off
+puts Zombie.all_zombies.inspect
 
-
-
-
-
-
-
-
-
+puts Zombie.all 
 
 
 
